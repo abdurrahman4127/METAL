@@ -1,0 +1,20 @@
+﻿Level,Path,Operation,Input Size "(C, D, H, W)",Output Size "(C, D, H, W)",Notes
+0,Encoder,nnUNetConvBlock ×2,"(1, 128, 128, 128)","(32, 128, 128, 128)",No downsampling. Two conv blocks. Output is skip[0].
+,,,,,
+1,Encoder,Downsample (stride=2) → nnUNetConvBlock ×2,"(32, 128, 128, 128)","(64, 64, 64, 64)",Strided conv: "Conv3D(32→64, 3×3×3, stride=2)". Output is skip[1].
+,,,,,
+2,Encoder,Downsample (stride=2) → nnUNetConvBlock ×2,"(64, 64, 64, 64)","(128, 32, 32, 32)",Strided conv: "Conv3D(64→128, 3×3×3, stride=2)". Output is skip[2].
+,,,,,
+3,Encoder,Downsample (stride=2) → nnUNetConvBlock ×2,"(128, 32, 32, 32)","(256, 16, 16, 16)",Strided conv: "Conv3D(128→256, 3×3×3, stride=2)". Output is skip[3].
+,,,,,
+4,Encoder (Bottleneck),Downsample (stride=2) → nnUNetConvBlock ×2,"(256, 16, 16, 16)","(512, 8, 8, 8)",Strided conv: "Conv3D(256→512, 3×3×3, stride=2)". Output is skip[4]", used as "bottleneck and input to discriminator.
+,,,,,
+4→3,Decoder,Upsample (transposed conv) → Concat with skip[3] → nnUNetConvBlock ×2,"(512, 8, 8, 8) → (256, 16, 16, 16) → (512, 16, 16, 16)","(256, 16, 16, 16)",Transpose conv: "ConvT3D(512→256, 2×2×2, stride=2)". Concat with skip[3] (256 ch) → 512 ch. Then two conv blocks.
+,,,,,
+3→2,Decoder,Upsample → Concat with skip[2] → nnUNetConvBlock ×2,"(256, 16, 16, 16) → (128, 32, 32, 32) → (256, 32, 32, 32)","(128, 32, 32, 32)",Transpose conv: "ConvT3D(256→128, 2×2×2, stride=2)". Concat with skip[2] (128 ch) → 256 ch. Then two conv blocks.
+,,,,,
+2→1,Decoder,Upsample → Concat with skip[1] → nnUNetConvBlock ×2,"(128, 32, 32, 32) → (64, 64, 64, 64) → (128, 64, 64, 64)","(64, 64, 64, 64)",Transpose conv: "ConvT3D(128→64, 2×2×2, stride=2)". Concat with skip[1] (64 ch) → 128 ch. Then two conv blocks.
+,,,,,
+1→0,Decoder,Upsample → Concat with skip[0] → nnUNetConvBlock ×2,"(64, 64, 64, 64) → (32, 128, 128, 128) → (64, 128, 128, 128)","(32, 128, 128, 128)",Transpose conv: "ConvT3D(64→32, 2×2×2, stride=2)". Concat with skip[0] (32 ch) → 64 ch. Then two conv blocks.
+,,,,,
+Final,Decoder,1×1×1 Conv (Final Layer),"(32, 128, 128, 128)","(3, 128, 128, 128)","Conv3D(32 → 3, 1×1×1)". Output is segmentation logits" for WT, TC, ET."
