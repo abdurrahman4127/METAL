@@ -1,2 +1,12 @@
-/*-x
-/code/w_90_eps/*.pth
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+checkpoints/
+*.pth
+*.pt
+datasets/
+*.tmp
