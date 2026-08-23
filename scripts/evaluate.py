@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import torch
 import numpy as np
@@ -11,14 +9,13 @@ from src.models import SegmentationModel, ModalityDiscriminator
 from src.data import BraTSDataset
 from src.config import (
     BATCH_SIZE_DF, NUM_WORKERS, BASE_FEATURES, BOTTLENECK_SCALE,
-    INPUT_CHANNELS, OUTPUT_CHANNELS, ALL_MODALITY_NAMES, DISCRIMINATOR_HIDDEN_DIM
+    INPUT_CHANNELS, OUTPUT_CHANNELS, ALL_MODALITY_NAMES, DISCRIMINATOR_HIDDEN_DIM,
+    DATASET_DIR
 )
 
 
 def evaluate(model, dataloader, device):
     """
-    evaluate segmentation model on dataset.
-    
     args:
         model: segmentation model
         dataloader: evaluation data loader
@@ -107,7 +104,6 @@ def evaluate(model, dataloader, device):
 
 
 def main():
-    """run evaluation pipeline."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[Setup] Using device: {device}")
 
@@ -116,14 +112,13 @@ def main():
         print(f"[Error] Checkpoint not found: {checkpoint_path}")
         return
 
-    dataset_dir = "/path/to/brats2020"
-    if not os.path.exists(dataset_dir):
-        print(f"[Error] Dataset directory not found: {dataset_dir}")
+    if not os.path.exists(DATASET_DIR):
+        print(f"[Error] Dataset directory not found: {DATASET_DIR}")
         return
 
     print("[Data] Loading evaluation dataset...")
     dataset = BraTSDataset(
-        data_dir=dataset_dir,
+        data_dir=DATASET_DIR,
         modality_names=ALL_MODALITY_NAMES,
         mode="val"
     )

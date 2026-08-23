@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import torch
 from torch.utils.data import DataLoader
@@ -13,23 +11,21 @@ from src.config import (
     INPUT_CHANNELS, OUTPUT_CHANNELS, ALL_MODALITY_NAMES,
     INNER_LOOP_LR_ALPHA, INNER_LOOP_STEPS_K, META_LR_G, DISCRIMINATOR_LR,
     LAMBDA_SEG, LAMBDA_ADV_G, LAMBDA_REG_ADAPTER, ACCUMULATION_STEPS,
-    USE_AMP, NUM_EPOCHS
+    USE_AMP, NUM_EPOCHS, DATASET_DIR
 )
 
 
 def main():
-    """run training pipeline."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[Setup] Using device: {device}")
 
-    dataset_dir = "/path/to/brats2020"
-    if not os.path.exists(dataset_dir):
-        print(f"[Error] Dataset directory not found: {dataset_dir}")
+    if not os.path.exists(DATASET_DIR):
+        print(f"[Error] Dataset directory not found: {DATASET_DIR}")
         return
 
     print("[Data] Loading BraTSDataset...")
     dataset_Dm = BraTSDataset(
-        data_dir=dataset_dir,
+        data_dir=DATASET_DIR,
         modality_names=ALL_MODALITY_NAMES,
         mode="train",
         partial_modality_prob=0.5,
@@ -37,7 +33,7 @@ def main():
     )
 
     dataset_Df = BraTSDataset(
-        data_dir=dataset_dir,
+        data_dir=DATASET_DIR,
         modality_names=ALL_MODALITY_NAMES,
         mode="train",
         partial_modality_prob=0.0
