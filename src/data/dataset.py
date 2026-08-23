@@ -1,7 +1,3 @@
-"""
-brats dataset for brain tumor segmentation.
-"""
-
 import os
 import random
 import numpy as np
@@ -16,8 +12,6 @@ from ..config import ALL_MODALITY_NAMES, TARGET_SHAPE
 
 class BraTSDataset(Dataset):
     """
-    brain tumor segmentation dataset from brats challenge.
-    
     loads multi-modal mri scans and ground truth segmentation,
     applies preprocessing, and returns either full-modality
     or partial-modality samples based on mode.
@@ -62,8 +56,6 @@ class BraTSDataset(Dataset):
         idx: int
     ) -> Tuple[Dict[str, torch.Tensor], torch.Tensor, torch.Tensor]:
         """
-        load and preprocess scan and segmentation.
-        
         args:
             idx: sample index
         

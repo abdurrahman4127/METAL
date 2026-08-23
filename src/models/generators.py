@@ -276,8 +276,6 @@ class MetaGenerator(nn.Module):
         modality_mask: torch.Tensor
     ) -> List[Dict[str, torch.Tensor]]:
         """
-        generate adapter parameters for all levels.
-        
         args:
             bottleneck_features: encoder bottleneck output
             modality_mask: binary modality presence mask

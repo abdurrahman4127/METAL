@@ -14,8 +14,6 @@ from ..models import SegmentationModel, ModalityDiscriminator
 
 class BiLevelMetaTrainer:
     """
-    bi-level meta-trainer implementing the correct algorithm from the paper.
-
     inner loop: updates only adapter parameters on partial-modality data.
     outer loop: updates base network and meta-generator on full-modality data
                 with gradients flowing through the inner-adapted model.
@@ -39,8 +37,6 @@ class BiLevelMetaTrainer:
         accumulation_steps: int = 1
     ):
         """
-        initialize meta-trainer with bi-level optimization settings.
-
         args:
             segmentation_model: main segmentation model (base parameters)
             discriminator_model: adversarial modality discriminator
@@ -109,15 +105,9 @@ class BiLevelMetaTrainer:
 
     def train_epoch(self, epoch: int):
         """
-        perform one training epoch with bi-level meta-learning.
-
-        implements algorithm 2 from paper:
         - inner loop: adapt Δθ on partial-modality data D_m
         - outer loop: update θ, φ on full-modality data D_f
         - both loops: update discriminator D_ψ
-
-        args:
-            epoch: current epoch number
         """
         self.segmentation_model.train()
         self.discriminator_model.train()
@@ -381,12 +371,6 @@ class BiLevelMetaTrainer:
                           f"({old_best:.4f} → {self.best_dsc:.4f})")
 
     def train(self, num_epochs: int):
-        """
-        run training for specified number of epochs.
-
-        args:
-            num_epochs: number of epochs to train
-        """
         for epoch in range(num_epochs):
             self.train_epoch(epoch)
 

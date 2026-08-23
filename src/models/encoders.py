@@ -6,9 +6,7 @@ from typing import List
 class nnUNetConvBlock(nn.Module):
     """
     double 3d convolution with group normalization and leaky relu.
-    
-    implements the basic building block: conv3d -> groupnorm ->
-    leakyrelu -> conv3d -> groupnorm -> leakyrelu + optional dropout.
+    conv3d -> groupnorm -> leakyrelu -> conv3d -> groupnorm -> leakyrelu + optional dropout.
     """
     def __init__(
         self,
@@ -84,8 +82,6 @@ class nnUNetConvBlock(nn.Module):
 
 class nnUNetEncoder(nn.Module):
     """
-    5-level hierarchical encoder for 3d medical images.
-    
     progressively downsamples with max pooling and processes with
     conv blocks, returning skip connections at each level.
     """

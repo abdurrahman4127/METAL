@@ -1,7 +1,3 @@
-"""
-data module for metal framework.
-"""
-
 from .dataset import BraTSDataset
 from .preprocessing import (
     preprocess_spatial,

@@ -1,3 +1,8 @@
+import os
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATASET_DIR = os.path.join(PROJECT_ROOT, "datasets", "brats2020")
+
 ALL_MODALITY_NAMES = ["flair", "t1", "t1ce", "t2"]
 NUM_MODALITIES = len(ALL_MODALITY_NAMES)
 TARGET_SHAPE = (128, 128, 128)

@@ -1,7 +1,3 @@
-"""
-preprocessing utilities for 3d medical imaging data.
-"""
-
 import numpy as np
 import torch
 from typing import Tuple
@@ -45,8 +41,6 @@ def create_multilabel_seg_masks(
     seg_array: np.ndarray
 ) -> np.ndarray:
     """
-    convert brats integer segmentation labels to 3-channel binary masks.
-    
     channel 0: whole tumor (label >= 1)
     channel 1: tumor core (label 1 or 3)
     channel 2: enhancing tumor (label 4)
@@ -71,8 +65,6 @@ def load_and_preprocess_nifti(
     target_shape: Tuple[int, int, int] = (128, 128, 128)
 ) -> Tuple[torch.Tensor, np.ndarray]:
     """
-    load and preprocess single nifti file.
-    
     args:
         modality_path: path to nifti file
         target_shape: target spatial dimensions
