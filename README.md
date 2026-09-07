@@ -2,6 +2,7 @@
 
 This repository contains the source code for **METAL**, a segmentation framework designed for brain tumor segmentation when one or more MRI modalities are unavailable. The approach combines an nnUNet-inspired 3D backbone, attention-based feature fusion, lightweight adapters, and adversarial modality regularization within a bi-level meta-learning strategy. Methodology overview:
 
+[![Manuscript PDF](https://img.shields.io/badge/PDF-Download-red?style=flat-square&logo=adobeacrobatreader&logoColor=white)](https://github.com/abdurrahman4127/abdurrahman4127.github.io/blob/main/pdfs/IAR-Grant-1-METAL.pdf)
 ![Methodology](figs/segmentation.png)
 
 ## Bi-Level Meta-Learning
@@ -63,7 +64,8 @@ The following Python packages are required to run the code:
 - Matplotlib >= 3.7.0
 - tqdm >= 4.66.0
 
-
-## Citation
-
-Will be updated.
+## Citation 
+> [!NOTE]
+> Citation will be updated soon. The paper is currently under review. An early version is available at the following link:
+>
+> [![Manuscript PDF](https://img.shields.io/badge/PDF-Download-red?style=flat-square&logo=adobeacrobatreader&logoColor=white)](https://github.com/abdurrahman4127/abdurrahman4127.github.io/blob/main/pdfs/IAR-Grant-1-METAL.pdf)
